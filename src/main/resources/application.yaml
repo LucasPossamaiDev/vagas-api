@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/vagas_db
+    username: vagas_user
+    password: vagas_pass
+  jpa:
+    hibernate:
+      ddl-auto: none
