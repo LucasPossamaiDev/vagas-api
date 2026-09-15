@@ -1,14 +1,17 @@
 package com.vagas.vagas_api.models;
 
 import jakarta.persistence.*;
-import lombok.Data;
+
 
 import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @Entity
 @Table (name = "empresas")
-@Data
+@Getter
+@Setter
 
 public class Empresa {
 
