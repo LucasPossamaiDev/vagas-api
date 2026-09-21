@@ -43,7 +43,6 @@ CREATE TABLE vagas (
 
 CREATE TABLE tecnologias
 (
-
     id   BIGSERIAL PRIMARY KEY,
     nome varchar(150) NOT NULL UNIQUE
 );
