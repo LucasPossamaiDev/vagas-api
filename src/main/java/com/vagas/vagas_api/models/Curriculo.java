@@ -27,6 +27,7 @@ public class Curriculo {
     @Column(name = "arquivos_pdf_url", length = 500)
     private String arquivosPdfUrl;
 
+    // Relacionamento Many-to-Many com a entidade Tecnologia
     @ManyToMany
     @JoinTable(
         name = "curriculos_tecnologias",
@@ -38,6 +39,7 @@ public class Curriculo {
     @Column(name = "atualizado_em", nullable = false)
     private LocalDateTime atualizadoEm;
 
+    // Atualiza a data de atualização antes de salvar ou atualizar o currículo
     @PrePersist
     @PreUpdate
     protected void aoSalvar() {

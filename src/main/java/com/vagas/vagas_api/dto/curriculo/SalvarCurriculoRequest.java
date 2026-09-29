@@ -10,6 +10,7 @@ public record SalvarCurriculoRequest(
     @Size(max = 500, message = "A URL do arquivo deve ter no máximo 500 caracteres")
     String arquivosPdfUrl,
 
+    // IDs das tecnologias associadas ao currículo
     Set<Long> tecnologiaIds
 ) {
 }
