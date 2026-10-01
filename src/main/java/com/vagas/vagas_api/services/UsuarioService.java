@@ -2,6 +2,8 @@ package com.vagas.vagas_api.services;
 
 import com.vagas.vagas_api.dto.usuario.CriarUsuarioRequest;
 import com.vagas.vagas_api.dto.usuario.UsuarioResponse;
+import com.vagas.vagas_api.exception.RecursoNaoEncontradoException;
+import com.vagas.vagas_api.exception.RegraDeNegocioException;
 import com.vagas.vagas_api.models.Usuario;
 import com.vagas.vagas_api.repository.UsuarioRepository;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,9 +24,9 @@ public class UsuarioService {
     }
 
     @Transactional
-    public UsuarioResponse cadastrarUsuario(CriarUsuarioRequest request) {
-        if (usuarioRepository.existsByEmail((request.email()))) {
-            throw new RuntimeException("Já existe um usuário cadastrado com este e-mail.");
+    public UsuarioResponse cadastrar(CriarUsuarioRequest request) {
+        if (usuarioRepository.existsByEmail(request.email())) {
+            throw new RegraDeNegocioException("Já existe um usuário cadastrado com este e-mail.");
         }
 
         Usuario usuario = new Usuario();
@@ -37,13 +39,13 @@ public class UsuarioService {
     }
 
     @Transactional(readOnly = true)
-    public UsuarioResponse buscarUsuarioPorId(Long id) {
+    public UsuarioResponse buscarPorId(Long id) {
         Usuario usuario = buscarEntidadePorId(id);
         return new UsuarioResponse(usuario);
     }
 
     @Transactional(readOnly = true)
-    public List<UsuarioResponse> listarTodosUsuarios() {
+    public List<UsuarioResponse> listarTodos() {
         return usuarioRepository.findAll()
                 .stream()
                 .map(UsuarioResponse::new)
@@ -53,7 +55,7 @@ public class UsuarioService {
     @Transactional(readOnly = true)
     public Usuario buscarEntidadePorId(Long id) {
         return usuarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado com o ID: " + id));
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Usuário não encontrado com o ID: " + id));
     }
 
 }
