@@ -31,6 +31,7 @@ public class VagaService {
         this.tecnologiaService = tecnologiaService;
     }
 
+    // Cadastra uma nova vaga associada a uma empresa e tecnologias.
     @Transactional
     public VagaResponse cadastrar(Long empresaId, CriarVagaRequest request) {
         Empresa empresa = empresaService.buscarEntidadePorId(empresaId);
@@ -47,18 +48,21 @@ public class VagaService {
         return new VagaResponse(vagaSalva);
     }
 
+    // Busca uma vaga pelo ID e retorna a resposta correspondente.
     @Transactional(readOnly = true)
     public VagaResponse buscarPorId(Long id) {
         Vaga vaga = buscarEntidadePorId(id);
         return new VagaResponse(vaga);
     }
 
+    // Busca a entidade Vaga pelo ID, lançando uma exceção se não encontrada.
     @Transactional(readOnly = true)
     public Vaga buscarEntidadePorId(Long id) {
         return vagaRepository.findById(id)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Vaga não encontrada com o ID: " + id));
     }
 
+    // Lista todas as vagas, podendo filtrar por status se fornecido.
     @Transactional(readOnly = true)
     public List<VagaResponse> listarTodas(String status) {
         List<Vaga> vagas;
@@ -72,6 +76,7 @@ public class VagaService {
                 .toList();
     }
 
+    // Lista todas as vagas de uma empresa específica.
     @Transactional(readOnly = true)
     public List<VagaResponse> listarPorEmpresa(Long empresaId) {
         empresaService.buscarEntidadePorId(empresaId);
@@ -81,6 +86,7 @@ public class VagaService {
                 .toList();
     }
 
+    // Atualiza o status de uma vaga específica.
     @Transactional
     public VagaResponse atualizarStatus(Long id, AtualizarStatusVagaRequest request) {
         Vaga vaga = buscarEntidadePorId(id);
@@ -89,6 +95,7 @@ public class VagaService {
         return new VagaResponse(vagaAtualizada);
     }
 
+    // Deleta uma vaga pelo ID, lançando uma exceção se não encontrada.
     @Transactional
     public void deletar(Long id) {
         Vaga vaga = buscarEntidadePorId(id);
