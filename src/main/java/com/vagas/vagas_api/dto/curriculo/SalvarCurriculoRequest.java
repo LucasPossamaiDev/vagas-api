@@ -1,5 +1,7 @@
 package com.vagas.vagas_api.dto.curriculo;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import java.util.Set;
 
@@ -11,6 +13,6 @@ public record SalvarCurriculoRequest(
     String arquivosPdfUrl,
 
     // IDs das tecnologias associadas ao currículo
-    Set<Long> tecnologiaIds
+    Set<@NotNull(message = "O ID da tecnologia não pode ser nulo") @Positive(message = "O ID da tecnologia deve ser um número positivo") Long> tecnologiaIds
 ) {
 }
