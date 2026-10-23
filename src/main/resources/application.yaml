@@ -6,3 +6,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
+api:
+  security:
+    token:
+      secret: ${JWT_SECRET:minha-chave-secreta-padrao-super-segura-123456}
+      expiration-hours: ${JWT_EXPIRATION_HOURS:2}
